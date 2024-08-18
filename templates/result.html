@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Prediction Result</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">Prediction Result</a>
+        </div>
+    </nav>
+    <div class="container mt-5 justify-content-center" style="height: 100vh;">
+        <!--Prediction result-->
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">Prediction Result: <em>{{result}}</em></h4>
+            <p>The model has predicted that the gait pattern is <strong>{{result}}</strong></p>
+        </div>
+        {% if result == "Abnormal" %}
+        <h5 class="mt-4 mb-3">These are the Assistive Devices i recommend:</h5>
+        <div id="assistiveDeviceCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for device in devices %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}" style="margin: auto;">
+                    <div class="mx-auto">
+                        <div class="card" style="width: 18rem; margin: auto;">
+                            <img src="{{ url_for('static', filename='images/' + device.filename) }}" class="card-img-top" alt="{{ device.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ device.name }}</h5>
+                                <p class="card-text">{{ device.description }}</p>
+                                <a href="#" class="btn btn-primary">Get Device</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#assistiveDeviceCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#assistiveDeviceCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        {% else %}
+        <iframe src="https://giphy.com/embed/F9hQLAVhWnL56" width="480" height="317" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        <p><a href="https://giphy.com/gifs/F9hQLAVhWnL56">via GIPHY</a></p>
+        {% endif %}
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+</body>
+</html>
