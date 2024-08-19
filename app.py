@@ -100,8 +100,8 @@ def devices():
 
     }
     for device_image in device_images:
-        device_name = device_image.split('.')[1].split('\\')[-1]
-        filename = device_image.split("\\")[-1]
+        device_name = os.path.splitext(os.path.basename(device_image))[0]
+        filename = os.path.basename(device_image)
         devices.append({
             "filename": filename,
             "name": device_name,
